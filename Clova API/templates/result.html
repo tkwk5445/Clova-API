@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업로드 결과</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+            color: #007bff;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>업로드 결과</h1>
+        <p><strong>Clova Speech(변환된 텍스트):</strong></p>
+        <p>{{ text }}</p>
+        <p><strong>Clova Studio(요약된 값):</strong></p>
+        <p>{{ summary }}</p>
+        <a href="/">다시 업로드하기</a>
+    </div>
+</body>
+</html>
+
