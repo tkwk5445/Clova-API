@@ -16,7 +16,7 @@ CLOVA_SPEECH_SECRET_KEY = ''
 CLOVA_SPEECH_INVOKE_URL = ''
 
 # Clova Studio 요약 API 정보
-CLOVA_STUDIO_HOST = 'clovastudio.apigw.ntruss.com'
+CLOVA_STUDIO_HOST = ''
 CLOVA_STUDIO_API_KEY = ''
 CLOVA_STUDIO_API_KEY_PRIMARY_VAL = ''
 CLOVA_STUDIO_REQUEST_ID = ''
@@ -88,6 +88,13 @@ def _send_request(self, completion_request):
     print("API Response:", result)  # 응답 출력
     ...
 
+
+@app.template_filter('newline_list')
+def newline_list(summary):
+    # Replace ' -' with '<br> -' to create a line break before each list item, except for the first
+    return summary.replace(' -', '<br> -')
+
+# Apply the custom filter to the summary in the template with {{ summary|newline_list }}
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
