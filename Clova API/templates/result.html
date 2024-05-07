@@ -41,15 +41,55 @@
         a:hover {
             text-decoration: underline;
         }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #fullText, #summaryText {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            display: none;
+        }
     </style>
+    <script>
+        function toggleDisplay(elementId, button) {
+            var x = document.getElementById(elementId);
+            if (x.style.display === 'none') {
+                x.style.display = 'block'; 
+                button.textContent = 'Hide Text';
+            } else {
+                x.style.display = 'none';
+                button.textContent = 'Show Text';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>업로드 결과</h1>
-        <p><strong>Clova Speech(변환된 텍스트):</strong></p>
-        <p>{{ text }}</p>
-        <p><strong>Clova Studio(요약된 값):</strong></p>
-        <p>{{ summary }}</p>
+        <div>
+            <strong>Clova Speech(변환된 텍스트):</strong>
+            <button onclick="toggleDisplay('fullText', this)">Show Text</button>
+        </div>
+        <div id="fullText" style="display:none;">
+            <p>{{ text }}</p>
+        </div>
+        
+        <div>
+            <strong>Clova Studio(요약된 값):</strong>
+            <button onclick="toggleDisplay('summaryText', this)">Show Summary</button>
+        </div>
+        <div id="summaryText" style="display:none;">
+            <p>{{ summary|newline_list }}</p>
+        </div>
+        
         <a href="/">다시 업로드하기</a>
     </div>
 </body>
