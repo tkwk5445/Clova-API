@@ -3,94 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 결과</title>
+    <title>Clova API</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            background-color: #f8f9fa;
+            background-color: #f7f7f7;
             margin: 0;
             padding: 0;
+            color: #333;
         }
         .container {
             max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 10px;
+            margin: 0 auto;
+            padding: 30px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         h1 {
-            color: #333;
+            color: #4CAF50;
+            font-size: 28px;
             margin-bottom: 20px;
         }
         p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .developer-info {
+            font-style: italic;
             color: #666;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
         }
-        strong {
+        form {
+            margin-top: 30px;
+            margin-bottom: 70px; /* Developer info 공간 확보 */
+        }
+        label {
             font-weight: bold;
-            color: #007bff;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
         }
-        a {
-            color: #007bff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #fullText, #summaryText {
-            text-align: left;
-            padding: 10px;
+        input[type="text"] {
+            padding: 12px;
             border: 1px solid #ccc;
-            margin: 10px 0;
-            display: none;
+            border-radius: 4px;
+            width: calc(100% - 90px);
+            margin-right: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+        input[type="submit"] {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
-    <script>
-        function toggleDisplay(elementId, button) {
-            var x = document.getElementById(elementId);
-            if (x.style.display === 'none') {
-                x.style.display = 'block'; 
-                button.textContent = 'Hide Text';
-            } else {
-                x.style.display = 'none';
-                button.textContent = 'Show Text';
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
-        <h1>업로드 결과</h1>
-        <div>
-            <strong>Clova Speech(변환된 텍스트):</strong>
-            <button onclick="toggleDisplay('fullText', this)">Show Text</button>
+        <h1>Clova Speech & Clova Studio 요약 API</h1>
+        <form action="/" method="post" enctype="multipart/form-data" onsubmit="showPleaseWait()">
+            <label for="file_url">음성 파일 (S3 / Object Storage) URL:</label>
+            <input type="text" id="file_url" name="file_url">
+            <br>
+            <label for="voice_file">또는 음성 파일 업로드:</label>
+            <input type="file" id="voice_file" name="voice_file" accept="audio/*">
+            <br>
+            <input type="submit" value="제출">
+        </form>
+        <!-- 로딩 메시지가 표시될 부분 -->
+        <div id="loadingMessage" style="display: none;">
+            <p>잠시 기다려주세요...</p>
         </div>
-        <div id="fullText" style="display:none;">
-            <p>{{ text }}</p>
-        </div>
-        
-        <div>
-            <strong>Clova Studio(요약된 값):</strong>
-            <button onclick="toggleDisplay('summaryText', this)">Show Summary</button>
-        </div>
-        <div id="summaryText" style="display:none;">
-            <p>{{ summary|newline_list|safe }}</p>
-        </div>
-        
-        <a href="/">다시 업로드하기</a>
     </div>
+    
+    <script>
+        function showPleaseWait() {
+            var loadingMessage = document.getElementById('loadingMessage');
+            loadingMessage.style.display = 'block';
+            // 폼이 실제로 제출되는 것을 방지하려면 여기서 return false;를 추가합니다.
+        }
+    </script>
 </body>
 </html>
