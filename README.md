@@ -31,3 +31,41 @@ NCP Clova 에서 제공되는 API 를 통해 음성파일을 텍스트로 변환
 ---
 
 ## 🐳 Docker 사용 가이드
+
+```bash
+# 1. 도커 이미지 빌드
+docker build -t clova-api .
+
+# 2. 컨테이너 실행 (포트 5000 사용)
+docker run -d -p 5000:5000 --name clova-api-app clova-api
+
+# 3. 브라우저에서 접속
+http://localhost:5000
+```
+
+> 📌 실시간 로그 확인
+```bash
+docker logs -f clova-api-app
+```
+
+> 🧼 컨테이너 중지 및 삭제
+```bash
+docker stop clova-api-app && docker rm clova-api-app
+```
+
+---
+
+## 🔧 기술 참고사항
+
+- **실시간 로그 출력 지원**  
+  → Dockerfile 내 `ENV PYTHONUNBUFFERED=1` 설정  
+  → Python 코드 내 `print(..., flush=True)` 적용
+
+- **Flask 서버 실행 안정성 강화**  
+  → `app.run(debug=True, threaded=False, use_reloader=False)`  
+  → 멀티스레드로 인한 로그 중복, 재시작 방지
+
+---
+
+## 👨‍💻 제작자
+정욱진 (Jung Wookjin)
