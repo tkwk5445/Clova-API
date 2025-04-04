@@ -1,7 +1,5 @@
-# Side Project
 ## Clova-API
 Clova Speech & Clova Studio API  
-수행 기간 : 2/8 ~ 2/13  
 NCP Clova 에서 제공되는 API 를 통해 음성파일을 텍스트로 변환 후 요약하는 API 서비스 구축
 
 - **Develop Tools** : VSCode  
