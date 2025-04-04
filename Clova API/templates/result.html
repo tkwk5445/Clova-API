@@ -3,95 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>업로드 결과</title>
+    <title>변환 & 요약 결과</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
             text-align: center;
-            background-color: #f8f9fa;
+            background-color: #f4f4f9;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            color: #333;
         }
         .container {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 20px;
-            border-radius: 10px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-        strong {
+            color: #2c7a2c;
+            font-size: 22px;
             font-weight: bold;
-            color: #007bff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        a {
-            color: #007bff;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        h1::before {
+            content: "🔊";
+            margin-right: 8px;
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #fullText, #summaryText {
+        .section {
+            margin-top: 20px;
             text-align: left;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c7a2c;
+            cursor: pointer;
             padding: 10px;
-            border: 1px solid #ccc;
-            margin: 10px 0;
+            border-radius: 6px;
+            background-color: #e8f5e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .toggle-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .content {
             display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-line; /* 줄바꿈 유지 */
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #2c7a2c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #256b25;
         }
     </style>
     <script>
-        function toggleDisplay(elementId, button) {
-            var x = document.getElementById(elementId);
-            if (x.style.display === 'none') {
-                x.style.display = 'block'; 
-                button.textContent = 'Hide Text';
+        function toggleSection(sectionId, iconId) {
+            var content = document.getElementById(sectionId);
+            var icon = document.getElementById(iconId);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                icon.style.transform = "rotate(180deg)";
             } else {
-                x.style.display = 'none';
-                button.textContent = 'Show Text';
+                content.style.display = "none";
+                icon.style.transform = "rotate(0deg)";
             }
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>업로드 결과</h1>
-        <div>
-            <strong>Clova Speech(변환된 텍스트):</strong>
-            <button onclick="toggleDisplay('fullText', this)">Show Text</button>
+        <h1>변환 & 요약 결과</h1>
+
+        <!-- 변환된 텍스트 -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection('convertedText', 'icon1')">
+                📜 변환된 텍스트 <span class="toggle-icon" id="icon1">▼</span>
+            </div>
+            <div class="content" id="convertedText">
+                <p>{{ text }}</p>
+            </div>
         </div>
-        <div id="fullText" style="display:none;">
-            <p>{{ text }}</p>
+
+        <!-- 요약 텍스트 -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection('summaryText', 'icon2')">
+                📝 요약된 텍스트 <span class="toggle-icon" id="icon2">▼</span>
+            </div>
+            <div class="content" id="summaryText">
+                <p>{{ summary.replace('\n', '<br>') | safe }}</p>  <!-- 줄바꿈 유지 -->
+            </div>
         </div>
-        
-        <div>
-            <strong>Clova Studio(요약된 값):</strong>
-            <button onclick="toggleDisplay('summaryText', this)">Show Summary</button>
-        </div>
-        <div id="summaryText" style="display:none;">
-            <p>{{ summary|newline_list }}</p>
-        </div>
-        
-        <a href="/">다시 업로드하기</a>
+
+        <button class="btn" onclick="window.location.href='/'">🔄 다시 업로드하기</button>
     </div>
 </body>
 </html>
-
