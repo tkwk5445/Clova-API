@@ -22,7 +22,7 @@ NCP Clova 에서 제공되는 API 를 통해 음성파일을 텍스트로 변환
 
 ---
 
-## 📦 2025.03.31 Release Note
+## 📆 2025.03.31 Release Note
 1. Clova Speech 및 Clova Studio API 변수값 최신화
 2. templates 파일 업데이트 (`index.html`, `result.html`)
 3. Docker 리소스 업데이트 → `./clova_api_docker`  
@@ -30,7 +30,7 @@ NCP Clova 에서 제공되는 API 를 통해 음성파일을 텍스트로 변환
 
 ---
 
-## 🐳 Docker 사용 가이드
+## 🐋 Docker 사용 가이드
 
 ```bash
 # 1. 도커 이미지 빌드
@@ -64,6 +64,32 @@ docker stop clova-api-app && docker rm clova-api-app
 - **Flask 서버 실행 안정성 강화**  
   → `app.run(debug=True, threaded=False, use_reloader=False)`  
   → 멀티스레드로 인한 로그 중복, 재시작 방지
+
+---
+
+## 📋 실행 로그 예시 (Console Output)
+
+애플리케이션이 정상 동작할 경우 아래와 같은 로그가 출력됩니다:
+
+```
+Clova Speech API Response: {
+  'result': 'COMPLETED',
+  'message': 'Succeeded',
+  ...
+}
+
+Executing summarization request...
+Sending request to Clova Studio API with data: { ... }
+
+Clova Studio API Response: {
+  'status': {'code': '20000', 'message': 'OK'},
+  'result': {'text': '- 심사를 할 때 가장 중요하게 보는 부분은 창의성임 ...'}
+}
+
+Final summary to render: - 심사를 할 때 가장 중요하게 보는 부분은 창의성임 ...
+```
+
+> 위 로그는 Flask 내부 `print(..., flush=True)` 출력이며, `docker logs` 명령어로 실시간 확인 가능
 
 ---
 
