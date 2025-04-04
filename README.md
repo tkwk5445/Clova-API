@@ -65,6 +65,13 @@ docker stop clova-api-app && docker rm clova-api-app
   → `app.run(debug=True, threaded=False, use_reloader=False)`  
   → 멀티스레드로 인한 로그 중복, 재시작 방지
 
+## 서비스 화면 (index.html)
+![image](https://github.com/user-attachments/assets/46c6c22d-31d3-4175-b922-40737efc1202)
+
+## 결과 화면 (result.html)
+![image](https://github.com/user-attachments/assets/9ac930ef-b72c-4ce8-b48f-6059af3794c4)
+
+
 ---
 
 ## 👨‍💻 제작자
